@@ -100,7 +100,7 @@ app.get('/', function (req, res) {
 ///////
 function checkToSendMail() {
     // query lay emai, link -> gui mail thong bao
-    var query_string = "SELECT u.email, u.name, c.link, uc.idclass FROM user_class uc " +
+    var query_string = "SELECT u.email, u.name,c.name AS className, c.link, uc.idclass FROM user_class uc " +
         " JOIN user u ON u.email = uc.email" +
         " JOIN class c ON c.idclass = uc.idclass" +
         " WHERE uc.issendmail = false && c.ishasscore = true && u.isactive = true";
@@ -111,14 +111,15 @@ function checkToSendMail() {
             return;
         }
 
-        for (var i=0; i<results.length; i++){
+        for (var i = 0; i < results.length; i++) {
             var email = results[i].email;
             var link = results[i].link;
             var idclass = results[i].idclass;
             var name = results[i].name;
+            var className = results[i].className;
 
-            sendNotiEmail(name, "fries.uet@gmail.com", email, link, function (err) {
-                if (!err){
+            sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
+                if (!err) {
                     // -> gui mail thanh cong -> update issend = true
                     var query = connection.query(
                         'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
@@ -137,21 +138,21 @@ function checkToSendMail() {
 
 //// send mail
 
-function sendNotiEmail(name, from, to, links, callback) {
+function sendNotiEmail(name, from, to, nameClass, links, callback) {
 
     var helper = require('sendgrid').mail;
     from_email = new helper.Email(from);
     to_email = new helper.Email(to);
-    subject = "Thông báo có điểm";
+    subject = "Thông báo có điểm " + nameClass;
 
     var link_html = "";
     link_html += " <a" + "href=" + links + ">" + links + "</a>" + "<br> ";
     // for (var i=0; i<links.length; i++){
     //    link_html += " <a" + "href=" + links[i] + ">" + links[i] + "</a>" + "<br> ";
     // }
-    
+
     var content_html = "Xin chào " + name + "<br>" + "<br>" +
-        "Đã có điểm của một số môn sau:" + "<br>" +
+        "Đã có điểm của môn " + nameClass + " :" + "<br>" +
         "Link: " + link_html +
         "Chúc bạn một ngày vui vẻ :d" + "<br>" +
         "Fries Team.";
@@ -186,7 +187,7 @@ function sendNotiEmail(name, from, to, links, callback) {
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'cBHdYiWf',
+    password: '',
     database: 'score_uet'
 });
 
