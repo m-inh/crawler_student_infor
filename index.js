@@ -185,7 +185,7 @@ function sendNotiEmail(name, from, to, links, callback) {
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'cBHdYiWf',
     database: 'score_uet'
 });
 
