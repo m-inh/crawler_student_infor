@@ -24,7 +24,7 @@ var param_post = {
     form: form_post
 };
 
-function crawler(req, res) {
+function crawler() {
     request.post(param_post, function (err, response, body) {
         // console.log(body);
 
@@ -34,7 +34,6 @@ function crawler(req, res) {
         }
 
         if (res.statusCode === 200) {
-            res.end("ok em ei");
             var $ = cheerio.load(body);
 
             var urlArr = [];
@@ -94,10 +93,11 @@ function getIdClass(url) {
 
 app.get('/', function (req, res) {
     run();
+    res.send('OK!');
 });
 
 function run() {
-    crawler(req, res);
+    crawler();
     checkToSendMail()
 }
 
