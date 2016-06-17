@@ -29,23 +29,46 @@ function crawler() {
         // console.log(body);
 
         if (err) {
-            res.end("Loi roi em ei");
+            // res.end("Loi roi em ei");
             return;
         }
 
-        if (res.statusCode === 200) {
+        if (response.statusCode === 200) {
             var $ = cheerio.load(body);
 
             var urlArr = [];
             urlArr = $('a');
+            var nameArr = $('b');
+
+            // console.log(nameArr);
 
             for (var i = 0; i < urlArr.length; i++) {
                 var url_temp = url_host + urlArr[i].attribs.href.toString().trim().substring(2);
-                // console.log(url_temp);
+                var nameClass = $(nameArr[i]).text().trim();
+                console.log(url_temp);
+
+                var nameTemp = nameClass.split('(');
+                var nameTemp2 = "";
+                if (nameTemp.length > 1) {
+                    nameTemp2 = nameTemp[0].split('-')[0].trim();
+                } else {
+                    nameTemp2 = nameTemp.split('-')[0].trim();
+                }
 
                 var idClass = removeUndeline(getIdClass(url_temp));
                 if (idClass.length > 0) {
                     // console.log(idClass);
+
+                    var tempClass = {
+                        id: '',
+                        idclass: idClass,
+                        name: nameTemp2,
+                        ishasscore: true,
+                        link: url_temp
+                    };
+                    connection.query("INSERT INTO class SET ?", tempClass, function (err, results) {
+
+                    });
 
                     var query = connection.query(
                         'UPDATE class SET ishasscore = ?, link = ? WHERE idclass = ?',
@@ -192,6 +215,7 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
 
 
 // connection
+var temp_pass = "cBHdYiWf";
 
 var connection = mysql.createConnection({
     host: 'localhost',
