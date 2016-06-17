@@ -132,7 +132,6 @@ function checkToSendMail() {
         }
     });
 
-
 }
 
 //// send mail
@@ -187,7 +186,7 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'score-uet'
+    database: 'score_uet'
 });
 
 connection.connect(function (err) {
