@@ -5,6 +5,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var express = require('express');
 var mysql = require('mysql');
+var schedule = require('node-schedule');
 
 var app = express();
 
@@ -92,8 +93,16 @@ function getIdClass(url) {
 // get post
 
 app.get('/', function (req, res) {
+    run();
+});
+
+function run() {
     crawler(req, res);
     checkToSendMail()
+}
+
+schedule.scheduleJob('*/5 * * * *', function () {
+    run();
 });
 
 
