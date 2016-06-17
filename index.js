@@ -100,7 +100,7 @@ app.get('/', function (req, res) {
 ///////
 function checkToSendMail() {
     // query lay emai, link -> gui mail thong bao
-    var query_string = "SELECT u.email, c.link, uc.idclass FROM user_class uc " +
+    var query_string = "SELECT u.email, u.name, c.link, uc.idclass FROM user_class uc " +
         " JOIN user u ON u.email = uc.email" +
         " JOIN class c ON c.idclass = uc.idclass" +
         " WHERE uc.issendmail = false && c.ishasscore = true && u.isactive = true";
@@ -115,8 +115,9 @@ function checkToSendMail() {
             var email = results[i].email;
             var link = results[i].link;
             var idclass = results[i].idclass;
+            var name = results[i].name;
 
-            sendNotiEmail("bạn", "fries.uet@gmail.com", email, link, function (err) {
+            sendNotiEmail(name, "fries.uet@gmail.com", email, link, function (err) {
                 if (!err){
                     // -> gui mail thanh cong -> update issend = true
                     var query = connection.query(
