@@ -6,6 +6,8 @@ var cheerio = require('cheerio');
 var express = require('express');
 var mysql = require('mysql');
 var schedule = require('node-schedule');
+var BotK = require('./connect-bot');
+var bot = new BotK();
 
 var app = express();
 
@@ -113,7 +115,6 @@ function getIdClass(url) {
 }
 
 // get post
-
 app.get('/', function (req, res) {
     run();
     res.send('OK!');
@@ -132,7 +133,7 @@ schedule.scheduleJob('*/5 * * * *', function () {
 ///////
 function checkToSendMail() {
     // query lay emai, link -> gui mail thong bao
-    var query_string = "SELECT u.email, u.name,c.name AS className, c.link, uc.idclass FROM user_class uc " +
+    var query_string = "SELECT u.email, u.name, u.mssv, c.name AS className, c.link, uc.idclass FROM user_class uc " +
         " JOIN user u ON u.email = uc.email" +
         " JOIN class c ON c.idclass = uc.idclass" +
         " WHERE uc.issendmail = false && c.ishasscore = true && u.isactive = true";
@@ -143,12 +144,16 @@ function checkToSendMail() {
             return;
         }
 
+        var members = [];
+
         for (var i = 0; i < results.length; i++) {
-            var email = results[i].email;
-            var link = results[i].link;
-            var idclass = results[i].idclass;
-            var name = results[i].name;
-            var className = results[i].className;
+            var result = results[i];
+
+            var email = result.email;
+            var link = result.link;
+            var idclass = result.idclass;
+            var name = result.name;
+            var className = result.className;
 
             sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
                 if (!err) {
@@ -161,9 +166,16 @@ function checkToSendMail() {
                         });
                 }
             });
-            console.log(results[i].email);
-            console.log(results[i].link);
+
+            members.push(result.mssv);
         }
+
+        /**
+         * Send to bot messenger
+         */
+        bot.hasScore(name, idclass, link, members).end(function (response) {
+            console.log(response);
+        });
     });
 
 }
