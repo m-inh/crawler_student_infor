@@ -15,7 +15,7 @@ module.exports = class BotK {
 
     createRequest(data) {
         return this.request.post(this.host).encoding('utf-8')
-            .type('json').send(data);
+            .type('json').send(JSON.stringify(data));
     }
 };
 
