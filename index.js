@@ -173,7 +173,7 @@ function checkToSendMail() {
         /**
          * Send to bot messenger
          */
-        bot.hasScore(name, idclass, link, members).end(function (response) {
+        bot.hasScore(className, idclass, link, members).end(function (response) {
             console.log(response);
         });
     });

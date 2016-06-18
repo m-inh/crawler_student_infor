@@ -7,8 +7,8 @@ module.exports = class BotK {
         this.request = require('unirest');
     }
 
-    hasScore(name, code, link, members) {
-        var data = dataK.hasScore(name, code, link, members);
+    hasScore(className, code, link, members) {
+        var data = dataK.hasScore(className, code, link, members);
 
         return this.createRequest(data)
     }
@@ -20,10 +20,10 @@ module.exports = class BotK {
 };
 
 class dataK {
-    static hasScore(name, code, link, members) {
+    static hasScore(className, code, link, members) {
         return {
             type: 'newgrade',
-            course_name: name,
+            course_name: className,
             course_code: code,
             grade_link: link,
             members: members
