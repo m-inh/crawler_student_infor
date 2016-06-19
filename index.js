@@ -1,6 +1,7 @@
 /**
  * Created by TooNies1810 on 6/14/16.
  */
+require('dotenv').config();
 var request = require('request');
 var cheerio = require('cheerio');
 var express = require('express');
@@ -230,10 +231,10 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
 var temp_pass = "cBHdYiWf";
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'cBHdYiWf',
-    database: 'score_uet'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 connection.connect(function (err) {
