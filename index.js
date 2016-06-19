@@ -159,18 +159,12 @@ function checkToSendMail() {
         }
 
         console.log('Hello baby!');
-        console.log(results);
 
         for (var i = 0; i < results.length; i++) {
             var result = results[i];
+            console.log(result);
 
-            var email = result.email;
-            var link = result.link;
-            var idclass = result.idclass;
-            var name = result.name;
-            var className = result.className;
-
-            sendNotiEmail(name, function (err, result) {
+            sendNotiEmail(result, function (err, result) {
                 var email = result.email;
                 var className = result.className;
                 var idclass = result.idclass;
