@@ -47,7 +47,7 @@ function crawler() {
             for (var i = 0; i < urlArr.length; i++) {
                 var url_temp = url_host + urlArr[i].attribs.href.toString().trim().substring(2);
                 var nameClass = $(nameArr[i]).text().trim();
-                console.log(url_temp);
+                // console.log(url_temp);
 
                 var nameTemp = nameClass.split('(');
                 var nameTemp2 = "";
