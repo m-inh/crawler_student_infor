@@ -228,6 +228,9 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
     });
 }
 
+
+// connection
+
 var connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
