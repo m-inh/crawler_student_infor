@@ -229,10 +229,6 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
     });
 }
 
-
-// connection
-var temp_pass = "cBHdYiWf";
-
 var connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
