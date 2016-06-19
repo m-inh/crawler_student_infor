@@ -207,7 +207,7 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
     content = new helper.Content("text/html", content_html);
     mail = new helper.Mail(from_email, subject, to_email, content);
 
-    var sg = require('sendgrid').SendGrid("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");
+    var sg = require('sendgrid').SendGrid(process.env.SG_KEY);
     var requestBody = mail.toJSON();
     var request = sg.emptyRequest();
     request.method = 'POST';
