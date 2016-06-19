@@ -28,6 +28,7 @@ var param_post = {
 };
 
 function crawler() {
+    console.log('Crawler');
     request.post(param_post, function (err, response, body) {
         // console.log(body);
 
@@ -144,6 +145,7 @@ schedule.scheduleJob('*/2 * * * *', function () {
 
 ///////
 function checkToSendMail() {
+    console.log('checkToSendMail');
     // query lay emai, link -> gui mail thong bao
     var query_string = "SELECT u.email, u.name, u.mssv, c.name AS className, c.link, uc.idclass FROM user_class uc " +
         " JOIN user u ON u.email = uc.email" +
