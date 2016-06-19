@@ -121,6 +121,7 @@ app.get('/', function (req, res) {
 });
 
 function run() {
+    console.log("refresh");
     crawler();
     checkToSendMail()
 }
