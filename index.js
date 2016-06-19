@@ -176,10 +176,9 @@ function checkToSendMail() {
         /**
          * Send to bot messenger
          */
-        // Loi
-        // bot.hasScore(className, idclass, link, members).end(function (response) {
-        //     console.log(response.body);
-        // });
+        bot.hasScore(className, idclass, link, members).end(function (response) {
+            console.log(response.body);
+        });
     });
 
 }
