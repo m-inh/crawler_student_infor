@@ -8,7 +8,7 @@ function unicodeCharEscape(charCode) {
     return "\\u" + padWithLeadingZeros(charCode.toString(16));
 }
 
-function unicodeEscape(string) {
+module.exports.unicodeEscape = function unicodeEscape(string) {
     return string.split('')
         .map(function (char) {
             var charCode = char.charCodeAt(0);
@@ -16,5 +16,3 @@ function unicodeEscape(string) {
         })
         .join('');
 }
-
-module.exports.unicodeEscape = unicodeEscape();
