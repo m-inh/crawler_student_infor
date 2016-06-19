@@ -138,8 +138,8 @@ function run2() {
 
 
 setInterval(function () {
-    run2();
-}, 2000);
+    run();
+}, 10000);
 
 
 ///////
