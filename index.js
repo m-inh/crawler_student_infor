@@ -137,9 +137,11 @@ function run2() {
 // });
 
 
-setInterval(function () {
-    run2();
-}, 2000);
+// setInterval(function () {
+//     run2();
+// }, 2000);
+
+setInterval(run(), 120000);
 
 
 ///////
@@ -156,69 +158,66 @@ function checkToSendMail() {
             return;
         }
 
-        // for (var i = 0; i < results.length; i++) {
-        //     var result = results[i];
-        //
-        //     var email = result.email;
-        //     var link = result.link;
-        //     var idclass = result.idclass;
-        //     var name = result.name;
-        //     var className = result.className;
-        //
-        //     sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
-        //         if (!err) {
-        //             console.log("Send mail: " + email + " class: " + className);
-        //             // -> gui mail thanh cong -> update issend = true
-        //             var query = connection.query(
-        //                 'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
-        //                 [true, idclass],
-        //                 function (err, results) {
-        //                     // console.log("update ok");
-        //                 });
-        //         }
-        //     });
-        //
-        //     // /**
-        //     //  * Send to bot messenger
-        //     //  */
-        //     // bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
-        //     //     console.log(response.body);
-        //     // });
-        // }
+        for (var i = 0; i < results.length; i++) {
+            var result = results[i];
 
+            var email = result.email;
+            var link = result.link;
+            var idclass = result.idclass;
+            var name = result.name;
+            var className = result.className;
 
-        if (results.length == 0) {
-            console.log("het cmnr");
-            return;
+            sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err, result) {
+                var email = result.email;
+                var className = result.className;
+                var idclass = result.idclass;
+
+                if (!err) {
+                    console.log("Send mail: " + email + " class: " + className);
+                    // -> gui mail thanh cong -> update issend = true
+                    var query = connection.query(
+                        'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
+                        [true, idclass],
+                        function (err, results) {
+                            // console.log("update ok");
+                        });
+                }
+            });
+
+            // /**
+            //  * Send to bot messenger
+            //  */
+            // bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
+            //     console.log(response.body);
+            // });
         }
-        var result = results[0];
 
-        var email = result.email;
-        var link = result.link;
-        var idclass = result.idclass;
-        var name = result.name;
-        var className = result.className;
 
-        // console.log(email + " " + link);
-
-        sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
-            if (!err) {
-                console.log("Send mail: " + email + " class: " + className);
-                // -> gui mail thanh cong -> update issend = true
-                var query = connection.query(
-                    'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
-                    [true, idclass],
-                    function (err, results) {
-                        console.log("update ok " + email);
-                    });
-            }
-        });
-
-        // /**
-        //  * Send to bot messenger
-        //  */
-        // bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
-        //     console.log(response.body);
+        // if (results.length == 0) {
+        //     console.log("het cmnr");
+        //     return;
+        // }
+        // var result = results[0];
+        //
+        // var email = result.email;
+        // var link = result.link;
+        // var idclass = result.idclass;
+        // var name = result.name;
+        // var className = result.className;
+        //
+        // // console.log(email + " " + link);
+        //
+        // sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
+        //     if (!err) {
+        //         console.log("Send mail: " + email + " class: " + className);
+        //         // -> gui mail thanh cong -> update issend = true
+        //         var query = connection.query(
+        //             'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
+        //             [true, idclass],
+        //             function (err, results) {
+        //                 console.log("update ok " + email);
+        //             });
+        //     }
         // });
 
     });
@@ -226,19 +225,19 @@ function checkToSendMail() {
 }
 
 //// send mail
+function sendNotiEmail(result, callback) {
+    var links = result.link;
+    var to = result.email;
+    var nameClass = result.className;
+    var name = result.name;
 
-function sendNotiEmail(name, from, to, nameClass, links, callback) {
-
+    var from = 'fries.uet@gmail.com';
     var helper = require('sendgrid').mail;
-    from_email = new helper.Email(from);
-    to_email = new helper.Email(to);
-    subject = "Thông báo có điểm " + nameClass;
+    var from_email = new helper.Email(from);
+    var to_email = new helper.Email(to);
+    var subject = "Thông báo có điểm " + nameClass;
 
-    var link_html = "";
-    link_html += " <a" + "href=" + links + ">" + links + "</a>" + "<br> ";
-    // for (var i=0; i<links.length; i++){
-    //    link_html += " <a" + "href=" + links[i] + ">" + links[i] + "</a>" + "<br> ";
-    // }
+    var link_html = '<a href="' + links + '" target="_blank">' + links + '</a>' + '<br>';
 
     var content_html = "Xin chào " + name + "<br>" + "<br>" +
         "Đã có điểm của môn " + nameClass + " :" + "<br>" +
@@ -246,8 +245,8 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
         "Chúc bạn một ngày vui vẻ :d" + "<br>" +
         "Fries Team.";
 
-    content = new helper.Content("text/html", content_html);
-    mail = new helper.Mail(from_email, subject, to_email, content);
+    var content = new helper.Content("text/html", content_html);
+    var mail = new helper.Mail(from_email, subject, to_email, content);
 
     var sg = require('sendgrid').SendGrid(process.env.SG_KEY);
     var requestBody = mail.toJSON();
@@ -262,10 +261,10 @@ function sendNotiEmail(name, from, to, nameClass, links, callback) {
         var err = true;
         if (response.statusCode == 202) {
             err = false;
-            callback(err);
+            callback(err, result);
         } else {
             err = true;
-            callback(err);
+            callback(err, result);
         }
     });
 }
