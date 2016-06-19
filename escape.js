@@ -1,3 +1,5 @@
+'use strict';
+
 function padWithLeadingZeros(string) {
     return new Array(5 - string.length).join("0") + string;
 }
