@@ -157,6 +157,7 @@ function checkToSendMail() {
 
             sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
                 if (!err) {
+                    console.log("Send mail: " + email + " class: " + className);
                     // -> gui mail thanh cong -> update issend = true
                     var query = connection.query(
                         'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
