@@ -48,7 +48,7 @@ function crawler() {
             for (var i = 0; i < urlArr.length; i++) {
                 var url_temp = url_host + urlArr[i].attribs.href.toString().trim().substring(2);
                 var nameClass = $(nameArr[i]).text().trim();
-                console.log(url_temp);
+                // console.log(url_temp);
 
                 var nameTemp = nameClass.split('(');
                 var nameTemp2 = "";
@@ -122,6 +122,7 @@ app.get('/', function (req, res) {
 });
 
 function run() {
+    console.log("refresh");
     crawler();
     checkToSendMail()
 }
@@ -158,6 +159,7 @@ function checkToSendMail() {
 
             sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
                 if (!err) {
+                    console.log("Send mail: " + email + " class: " + className);
                     // -> gui mail thanh cong -> update issend = true
                     var query = connection.query(
                         'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
@@ -174,9 +176,10 @@ function checkToSendMail() {
         /**
          * Send to bot messenger
          */
-        bot.hasScore(className, idclass, link, members).end(function (response) {
-            console.log(response.body);
-        });
+        // Loi
+        // bot.hasScore(className, idclass, link, members).end(function (response) {
+        //     console.log(response.body);
+        // });
     });
 
 }
