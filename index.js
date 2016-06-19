@@ -165,7 +165,7 @@ function checkToSendMail() {
             var name = result.name;
             var className = result.className;
 
-            sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err, result) {
+            sendNotiEmail(name, function (err, result) {
                 var email = result.email;
                 var className = result.className;
                 var idclass = result.idclass;
