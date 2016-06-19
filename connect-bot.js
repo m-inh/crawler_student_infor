@@ -1,7 +1,5 @@
 'use strict';
 
-var utf8 = require('utf8');
-
 module.exports = class BotK {
 
     constructor() {
@@ -26,7 +24,7 @@ class dataK {
     static hasScore(className, code, link, members) {
         return {
             type: 'newgrade',
-            course_name: utf8.encode(className),
+            course_name: className,
             course_code: code,
             grade_link: link,
             members: members
