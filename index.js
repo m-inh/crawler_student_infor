@@ -194,20 +194,20 @@ function checkToSendMail() {
         var name = result.name;
         var className = result.className;
 
-        console.log(email + " " + link);
+        // console.log(email + " " + link);
 
-        // sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
-        //     if (!err) {
-        //         console.log("Send mail: " + email + " class: " + className);
-        //         // -> gui mail thanh cong -> update issend = true
-        //         var query = connection.query(
-        //             'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
-        //             [true, idclass],
-        //             function (err, results) {
-        //                 // console.log("update ok");
-        //             });
-        //     }
-        // });
+        sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
+            if (!err) {
+                console.log("Send mail: " + email + " class: " + className);
+                // -> gui mail thanh cong -> update issend = true
+                var query = connection.query(
+                    'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
+                    [true, idclass],
+                    function (err, results) {
+                        console.log("update ok " + email);
+                    });
+            }
+        });
 
         // /**
         //  * Send to bot messenger
