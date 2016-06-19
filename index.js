@@ -124,12 +124,22 @@ app.get('/', function (req, res) {
 function run() {
     console.log("refresh");
     crawler();
-    checkToSendMail()
+    checkToSendMail();
 }
 
-schedule.scheduleJob('*/2 * * * *', function () {
-    run();
-});
+function run2() {
+    console.log("refresh");
+    checkToSendMail();
+}
+
+// schedule.scheduleJob('*/2 * * * *', function () {
+//     run();
+// });
+
+
+setInterval(function () {
+    run2();
+}, 2000);
 
 
 ///////
@@ -146,35 +156,65 @@ function checkToSendMail() {
             return;
         }
 
-        for (var i = 0; i < results.length; i++) {
-            var result = results[i];
+        // for (var i = 0; i < results.length; i++) {
+        //     var result = results[i];
+        //
+        //     var email = result.email;
+        //     var link = result.link;
+        //     var idclass = result.idclass;
+        //     var name = result.name;
+        //     var className = result.className;
+        //
+        //     sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
+        //         if (!err) {
+        //             console.log("Send mail: " + email + " class: " + className);
+        //             // -> gui mail thanh cong -> update issend = true
+        //             var query = connection.query(
+        //                 'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
+        //                 [true, idclass],
+        //                 function (err, results) {
+        //                     // console.log("update ok");
+        //                 });
+        //         }
+        //     });
+        //
+        //     // /**
+        //     //  * Send to bot messenger
+        //     //  */
+        //     // bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
+        //     //     console.log(response.body);
+        //     // });
+        // }
 
-            var email = result.email;
-            var link = result.link;
-            var idclass = result.idclass;
-            var name = result.name;
-            var className = result.className;
+        var result = results[0];
 
-            sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
-                if (!err) {
-                    console.log("Send mail: " + email + " class: " + className);
-                    // -> gui mail thanh cong -> update issend = true
-                    var query = connection.query(
-                        'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
-                        [true, idclass],
-                        function (err, results) {
-                            // console.log("update ok");
-                        });
-                }
-            });
+        var email = result.email;
+        var link = result.link;
+        var idclass = result.idclass;
+        var name = result.name;
+        var className = result.className;
 
-            /**
-             * Send to bot messenger
-             */
-            bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
-                console.log(response.body);
-            });
-        }
+        console.log(email + " " + link);
+
+        // sendNotiEmail(name, "fries.uet@gmail.com", email, className, link, function (err) {
+        //     if (!err) {
+        //         console.log("Send mail: " + email + " class: " + className);
+        //         // -> gui mail thanh cong -> update issend = true
+        //         var query = connection.query(
+        //             'UPDATE user_class SET issendmail = ? WHERE idclass = ?',
+        //             [true, idclass],
+        //             function (err, results) {
+        //                 // console.log("update ok");
+        //             });
+        //     }
+        // });
+
+        // /**
+        //  * Send to bot messenger
+        //  */
+        // bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
+        //     console.log(response.body);
+        // });
 
     });
 
