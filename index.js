@@ -146,8 +146,6 @@ function checkToSendMail() {
             return;
         }
 
-        var members = [];
-
         for (var i = 0; i < results.length; i++) {
             var result = results[i];
 
@@ -170,15 +168,14 @@ function checkToSendMail() {
                 }
             });
 
-            members.push(result.mssv);
+            /**
+             * Send to bot messenger
+             */
+            bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
+                console.log(response.body);
+            });
         }
 
-        /**
-         * Send to bot messenger
-         */
-        bot.hasScore(className, idclass, link, members).end(function (response) {
-            console.log(response.body);
-        });
     });
 
 }
