@@ -158,6 +158,9 @@ function checkToSendMail() {
             return;
         }
 
+        console.log('Hello baby!');
+        console.log(results);
+
         for (var i = 0; i < results.length; i++) {
             var result = results[i];
 
