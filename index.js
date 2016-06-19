@@ -132,16 +132,14 @@ function run2() {
     checkToSendMail();
 }
 
-// schedule.scheduleJob('*/2 * * * *', function () {
-//     run();
-// });
+schedule.scheduleJob('*/2 * * * *', function () {
+    run();
+});
 
 
 // setInterval(function () {
 //     run2();
 // }, 2000);
-
-setInterval(run(), 120000);
 
 
 ///////
