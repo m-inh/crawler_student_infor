@@ -127,7 +127,7 @@ function run() {
     checkToSendMail()
 }
 
-schedule.scheduleJob('*/5 * * * *', function () {
+schedule.scheduleJob('*/2 * * * *', function () {
     run();
 });
 
