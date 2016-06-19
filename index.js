@@ -186,6 +186,11 @@ function checkToSendMail() {
         //     // });
         // }
 
+
+        if (results.length == 0) {
+            console.log("het cmnr");
+            return;
+        }
         var result = results[0];
 
         var email = result.email;
