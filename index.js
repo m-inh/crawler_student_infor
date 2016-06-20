@@ -162,7 +162,7 @@ function checkToSendMail() {
 
         for (var i = 0; i < results.length; i++) {
             var result = results[i];
-            console.log(result);
+            // console.log(result);
 
             sendNotiEmail(result, function (err, result) {
                 var email = result.email;
@@ -252,9 +252,9 @@ function sendNotiEmail(result, callback) {
     request.path = '/v3/mail/send';
     request.body = requestBody;
     sg.API(request, function (response) {
-        // console.log(response.statusCode);
-        // console.log(response.body);
-        // console.log(response.headers);
+        console.log(response.statusCode);
+        console.log(response.body);
+        console.log(response.headers);
         var err = true;
         if (response.statusCode == 202) {
             err = false;
