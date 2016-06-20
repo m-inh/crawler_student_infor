@@ -233,6 +233,9 @@ function sendNotiEmail(result, callback) {
     var from_email = new helper.Email(from);
     var to_email = new helper.Email(to);
     var subject = "Thông báo có điểm " + nameClass;
+    if (subject.length > 70) {
+        subject = subject.substring(0, 70) + " ...";
+    }
 
     var link_html = '<a href="' + links + '" target="_blank">' + links + '</a>' + '<br>';
 
