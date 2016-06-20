@@ -237,6 +237,9 @@ function sendNotiEmail(result, callback) {
         subject = subject.substring(0, 70) + " ...";
     }
 
+    console.log(subject);
+    console.log("subject length: " + subject.length);
+
     var link_html = '<a href="' + links + '" target="_blank">' + links + '</a>' + '<br>';
 
     var content_html = "Xin chào " + name + "<br>" + "<br>" +
