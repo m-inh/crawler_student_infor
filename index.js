@@ -233,8 +233,8 @@ function sendNotiEmail(result, callback) {
     var from_email = new helper.Email(from);
     var to_email = new helper.Email(to);
     var subject = "Thông báo có điểm " + nameClass.trim();
-    if (subject.length > 63) {
-        subject = subject.substring(0, 60) + " ...";
+    if (subject.length > 50) {
+        subject = subject.substring(0, 50) + " ...";
     }
 
     console.log(subject);
