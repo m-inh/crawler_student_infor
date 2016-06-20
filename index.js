@@ -243,7 +243,7 @@ function sendNotiEmail(result, callback) {
     var link_html = '<a href="' + links + '" target="_blank">' + links + '</a>' + '<br>';
 
     var content_html = "Xin chào " + name + "<br>" + "<br>" +
-        "Đã có điểm của môn " + nameClass + " :" + "<br>" +
+        "Đã có điểm của môn " + "<strong>" + nameClass + "</strong>" + " :" + "<br>" +
         "Link: " + link_html +
         "Chúc bạn một ngày vui vẻ :d" + "<br>" +
         "Fries Team.";
