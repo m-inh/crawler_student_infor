@@ -133,14 +133,14 @@ function run2() {
     checkToSendMail();
 }
 
-// schedule.scheduleJob('*/2 * * * *', function () {
-//     run();
-// });
-
-
-setInterval(function () {
+schedule.scheduleJob('*/2 * * * *', function () {
     run();
-}, 10000);
+});
+
+
+// setInterval(function () {
+//     run();
+// }, 10000);
 
 
 ///////
@@ -185,7 +185,7 @@ function checkToSendMail() {
              * Send to bot messenger
              */
             bot.hasScore(result.className, result.idclass, result.link, [result.mssv]).end(function (response) {
-                // console.log(response.body);
+                console.log(response.body);
             });
         }
 
