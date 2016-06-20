@@ -232,9 +232,9 @@ function sendNotiEmail(result, callback) {
     var helper = require('sendgrid').mail;
     var from_email = new helper.Email(from);
     var to_email = new helper.Email(to);
-    var subject = "Thông báo có điểm " + nameClass;
-    if (subject.length > 70) {
-        subject = subject.substring(0, 70) + " ...";
+    var subject = "Thông báo có điểm " + nameClass.trim();
+    if (subject.length > 50) {
+        subject = subject.substring(0, 50) + " ...";
     }
 
     var link_html = '<a href="' + links + '" target="_blank">' + links + '</a>' + '<br>';
