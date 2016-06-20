@@ -63,6 +63,10 @@ function crawler() {
                 if (idClass.length > 0) {
                     // console.log(idClass);
 
+                    // INT32022
+                    if (idClass.length > 8) {
+                        idClass = idClass.substring(0, 8);
+                    }
                     var tempClass = {
                         id: '',
                         idclass: idClass,
