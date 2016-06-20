@@ -181,12 +181,12 @@ function checkToSendMail() {
                 }
             });
 
-            // /**
-            //  * Send to bot messenger
-            //  */
-            // bot.hasScore(className, idclass, link, [result.mssv]).end(function (response) {
-            //     console.log(response.body);
-            // });
+            /**
+             * Send to bot messenger
+             */
+            bot.hasScore(result.className, result.idclass, result.link, [result.mssv]).end(function (response) {
+                console.log(response.body);
+            });
         }
 
 
